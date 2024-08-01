@@ -41,7 +41,7 @@ export const RecordingWindowWrap: React.FC<RecordingWindowWrapProps> = ({
           <IconRecording
             className={[
               'text-red-400 text-base',
-              recordingStatus === recordingStatusType.on
+              recordingStatus === recordingStatusType.on || recordingStatus === recordingStatusType.resumed
                 ? 'animate-pulse-fast'
                 : ''
             ].join(' ')}

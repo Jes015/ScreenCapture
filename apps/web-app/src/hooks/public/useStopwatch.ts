@@ -61,9 +61,17 @@ export const useStopwatch = () => {
     resetStopWatch()
   }
 
+  const pauseStopwatch = () => {
+    worker.current?.stopStopwatch()
+  }
+
+  const resumeStopwatch = () => {
+    worker.current?.startStopwatch()
+  }
+
   const resetStopWatch = () => {
     worker.current?.setInitialTime({ hours: 0, minutes: 0, seconds: 0 })
   }
 
-  return { time, startStopwatch, stopStopwatch, startTime, endTime }
+  return { time, startStopwatch, stopStopwatch, startTime, endTime, pauseStopwatch, resumeStopwatch }
 }
