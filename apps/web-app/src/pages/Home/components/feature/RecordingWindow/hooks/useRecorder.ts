@@ -43,6 +43,10 @@ export const useRecorder = (recordingType: RecordingType) => {
         await startRecording()
       } else if (newStatus === 'off') {
         await stopRecording()
+      } else if (newStatus === 'paused') {
+        await pauseRecording()
+      } else if (newStatus === 'resumed') {
+        await resumeRecording()
       }
 
       setRecordingStatus(newStatus)
@@ -89,6 +93,14 @@ export const useRecorder = (recordingType: RecordingType) => {
     if (videoSourceRef.current != null) {
       videoSourceRef.current.srcObject = null
     }
+  }
+
+  const pauseRecording = async () => {
+    await mediaRecorder.current?.pauseRecording()
+  }
+
+  const resumeRecording = async () => {
+    await mediaRecorder.current?.resumeRecording()
   }
 
   const getVideoAndAudioBlob = async () => {

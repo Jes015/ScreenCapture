@@ -1,17 +1,22 @@
 import { useStopwatch } from '@/hooks'
 import { formatTime } from '@/utils/others'
 import { useEffect } from 'react'
+import { recordingStatusType } from '../models'
 import { useRecorderContext } from '../services/context'
 
 export const RecordData = () => {
-  const { startStopwatch, stopStopwatch, time, startTime, endTime } = useStopwatch()
+  const { startStopwatch, stopStopwatch, time, startTime, endTime, pauseStopwatch, resumeStopwatch } = useStopwatch()
   const { recordingStatus } = useRecorderContext()
 
   useEffect(() => {
-    if (recordingStatus === 'on') {
+    if (recordingStatus === recordingStatusType.on) {
       startStopwatch()
-    } else if (recordingStatus === 'off') {
+    } else if (recordingStatus === recordingStatusType.off) {
       stopStopwatch()
+    } else if (recordingStatus === recordingStatusType.paused) {
+      pauseStopwatch()
+    } else if (recordingStatus === recordingStatusType.resumed) {
+      resumeStopwatch()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recordingStatus])
@@ -49,20 +54,20 @@ export const RecordData = () => {
                 <div
                     className='flex flex-col items-end justify-center flex-grow'
                 >
-                        <div
-                            className="flex gap-1 text-xs"
+                    <div
+                        className="flex gap-1 text-xs"
+                    >
+                        <span
+                            className="font-normal"
                         >
-                            <span
-                                className="font-normal"
-                            >
-                                Started at
-                            </span>
-                            <span
-                                className="text-xs font-normal"
-                            >
-                                {`${startTime?.hours ?? '- -'}:${startTime?.minutes ?? '- -'}`}
-                            </span>
-                        </div>
+                            Started at
+                        </span>
+                        <span
+                            className="text-xs font-normal"
+                        >
+                            {`${startTime?.hours ?? '- -'}:${startTime?.minutes ?? '- -'}`}
+                        </span>
+                    </div>
                     <div
                         className="flex gap-1 text-xs"
                     >

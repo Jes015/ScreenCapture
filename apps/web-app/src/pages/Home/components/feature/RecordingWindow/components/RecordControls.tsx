@@ -1,28 +1,57 @@
 import { Button } from '@/components/ui'
+import { recordingStatusType } from '../models'
 import { useRecorderContext } from '../services/context'
 
 export const RecordControls = () => {
   const { recordingStatus, toggleRecordingStatus } = useRecorderContext()
 
-  const handleOnClickForStartRecording = () => {
-    void toggleRecordingStatus('on')
+  const handleOnClickToStartRecording = () => {
+    void toggleRecordingStatus(recordingStatusType.on)
   }
 
-  const handleOnClickForStopRecording = () => {
-    void toggleRecordingStatus('off')
+  const handleOnClickToStopRecording = () => {
+    void toggleRecordingStatus(recordingStatusType.off)
   }
+
+  const handleOnClickToResumeRecording = () => {
+    void toggleRecordingStatus(recordingStatusType.resumed)
+  }
+
+  const handleOnClickToPauseRecording = () => {
+    void toggleRecordingStatus(recordingStatusType.paused)
+  }
+
+  const disablePauseResumeButton = recordingStatus === recordingStatusType.off
 
   return (
     <footer
       className="flex gap-1 text-[0.77rem]"
     >
-      <Button disabled>
-        Pause
-      </Button>
+
       {
-        recordingStatus === 'off' && (
+        (recordingStatus === recordingStatusType.on || recordingStatus === recordingStatusType.resumed || recordingStatus === recordingStatusType.off) && (
           <Button
-            onClick={handleOnClickForStartRecording}
+            onClick={handleOnClickToPauseRecording}
+            disabled={disablePauseResumeButton}
+          >
+            Pause
+          </Button>
+        )
+      }
+      {
+        recordingStatus === recordingStatusType.paused && (
+          <Button
+            onClick={handleOnClickToResumeRecording}
+            disabled={disablePauseResumeButton}
+          >
+            Resume
+          </Button>
+        )
+      }
+      {
+        recordingStatus === recordingStatusType.off && (
+          <Button
+            onClick={handleOnClickToStartRecording}
             className=" flex-grow"
           >
             Start
@@ -30,9 +59,9 @@ export const RecordControls = () => {
         )
       }
       {
-        recordingStatus === 'on' && (
+        (recordingStatus !== recordingStatusType.off) && (
           <Button
-            onClick={handleOnClickForStopRecording}
+            onClick={handleOnClickToStopRecording}
             className='flex-grow'
           >
             Stop
