@@ -14,7 +14,7 @@ export const Content: FC<ContentProps> = forwardRef<HTMLDivElement, ContentProps
       <DefaultContent
         {...{ ref }}
         align='end'
-        className='mt-[0.1rem]'
+        className='mt-[0.5rem]'
         style={{
           zIndex: 1000000000000
         }}
