@@ -34,7 +34,7 @@ export const WindowHeader: React.FC<WindowHeaderProps> = ({ icon, rightNode, win
           readOnly={readonlyTitle}
           className={
             [
-              'w-full border-none px-1', readonlyTitle ? 'cursor-move' : ''
+              'w-full border-none px-1 pr-5', readonlyTitle ? 'cursor-move' : ''
             ].join(' ')
           }
           defaultValue={windowData.name}

@@ -7,12 +7,7 @@ export interface AnchorProps extends AnchorHTMLAttributes<HTMLAnchorElement> { }
 export const Anchor: FC<AnchorProps> = ({ className, ...props }) => {
   return (
     <a
-      className={
-        clsx(
-          'text-blue-500 underline',
-          className
-        )
-      }
+      className='text-neutral-200 hover:text-blue-500 duration-100'
       rel='noopener noreferrer'
       {...props}
     />
